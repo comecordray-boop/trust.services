@@ -1,0 +1,16 @@
+# Configuration Netlify — build automatique du site Astro.
+# Utilisé si tu connectes ce dépôt GitHub à Netlify (déploiement continu).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# En-têtes de sécurité de base (site statique).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
