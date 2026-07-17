@@ -40,15 +40,10 @@ const mailConfig = {
         {f.missionOptions.map((o) => <option>{o}</option>)}
       </select>
 
-      <select name="chauffeur" class="fld">
-        <option value="">{f.driverPlaceholder}</option>
-        {f.driverOptions.map((o) => <option>{o}</option>)}
-      </select>
-
       <input name="dates" class="fld" placeholder={f.dates} />
       <input name="lieu" class="fld" placeholder={f.place} />
 
-      <select name="passagers" class="fld full">
+      <select name="passagers" class="fld">
         <option value="">{f.paxPlaceholder}</option>
         {f.paxOptions.map((o) => <option>{o}</option>)}
       </select>
@@ -188,12 +183,11 @@ const mailConfig = {
         `${L[0]}: ${val('nom')}`,
         `${L[1]}: ${val('email')}`,
         `${L[2]}: ${val('mission')}`,
-        `${L[3]}: ${val('chauffeur')}`,
-        `${L[4]}: ${val('dates')}`,
-        `${L[5]}: ${val('lieu')}`,
-        `${L[6]}: ${val('passagers')}`,
+        `${L[3]}: ${val('dates')}`,
+        `${L[4]}: ${val('lieu')}`,
+        `${L[5]}: ${val('passagers')}`,
         '',
-        `${L[7]}:`,
+        `${L[6]}:`,
         val('message'),
       ].join('\n');
 

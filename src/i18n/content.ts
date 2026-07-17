@@ -66,8 +66,6 @@ export type Dictionary = {
       email: string;
       missionPlaceholder: string;
       missionOptions: string[];
-      driverPlaceholder: string;
-      driverOptions: string[];
       dates: string;
       place: string;
       paxPlaceholder: string;
@@ -127,15 +125,15 @@ function buildGallery(lang: Lang): GalleryItem[] {
 
 const fr: Dictionary = {
   meta: {
-    title: 'Trust Services — Véhicule blindé avec ou sans chauffeur · Paris',
+    title: 'Trust Services — Berline blindée B6/B7 avec chauffeur formé · Paris',
     description:
-      "Mise à disposition d'une Mercedes-Benz Classe S 580 blindée, avec ou sans chauffeur. Basés à Paris, opérationnels en France et à l'international. Devis confidentiel sous 24 h.",
+      "Mise à disposition d'une Mercedes-Benz Classe S 580 blindée B6/B7 avec chauffeur formé (permis poids lourd & sécurité). Basés à Paris, opérationnels en France et à l'international. Forfait sur mesure, devis confidentiel sous 24 h.",
   },
   nav: { vehicle: 'Le véhicule', services: 'Services', quote: 'Devis', quoteCta: 'Devis' },
   hero: {
-    kicker: 'MERCEDES-BENZ · S 580 4MATIC · BLINDÉE',
+    kicker: 'MERCEDES-BENZ · S 580 4MATIC · BLINDAGE B6/B7',
     h1: 'La discrétion est la meilleure des protections.',
-    sub: "Mise à disposition d'un véhicule blindé, avec ou sans chauffeur. Basés à Paris, opérationnels partout.",
+    sub: "Mise à disposition d'une berline blindée B6/B7 avec chauffeur formé — permis poids lourd et sécurité. Basés à Paris, opérationnels partout.",
     cta1: 'Demander un devis',
     cta2: 'Découvrir le véhicule',
     stat1Label: 'DISPONIBILITÉ',
@@ -144,10 +142,10 @@ const fr: Dictionary = {
     stat2Value: '< 24 heures',
   },
   strip: [
-    'Blindage certifié',
+    'Blindage B6 / B7',
     'Look strictement série',
     'Vitres teintées',
-    'Avec ou sans chauffeur',
+    'Chauffeur formé',
     'Confidentialité totale',
   ],
   vehicle: {
@@ -158,14 +156,14 @@ const fr: Dictionary = {
     specs: [
       { label: 'MODÈLE', value: 'S 580 4MATIC' },
       { label: 'COULEUR', value: 'Noir obsidienne' },
-      { label: 'BLINDAGE', value: 'Certifié — niveau sur demande' },
+      { label: 'BLINDAGE', value: 'Certifié B6 / B7' },
       { label: 'PASSAGERS', value: '1 – 4' },
-      { label: 'CHAUFFEUR', value: 'Avec ou sans' },
+      { label: 'CHAUFFEUR', value: 'Formé — poids lourd & sécurité' },
     ],
   },
   services: {
     kicker: '02 — LES MISSIONS',
-    h2: 'Une mise à disposition adaptée à chaque besoin.',
+    h2: 'Une mise à disposition sur forfait, adaptée à chaque besoin.',
     items: [
       {
         num: '01 — TRANSFERT',
@@ -203,8 +201,6 @@ const fr: Dictionary = {
       email: 'Email *',
       missionPlaceholder: 'Type de mission…',
       missionOptions: ['Transfert ponctuel', 'Mise à disposition journée', 'Longue durée'],
-      driverPlaceholder: 'Chauffeur…',
-      driverOptions: ['Avec chauffeur', 'Sans chauffeur'],
       dates: 'Dates (du — au)',
       place: 'Lieu de prise en charge',
       paxPlaceholder: 'Nombre de passagers…',
@@ -213,7 +209,7 @@ const fr: Dictionary = {
     },
     mail: {
       subject: 'Demande de devis — Trust Services',
-      labels: ['Nom', 'Email', 'Mission', 'Chauffeur', 'Dates', 'Lieu de prise en charge', 'Passagers', 'Message'],
+      labels: ['Nom', 'Email', 'Mission', 'Dates', 'Lieu de prise en charge', 'Passagers', 'Message'],
     },
   },
   gallery: buildGallery('fr'),
@@ -225,15 +221,15 @@ const fr: Dictionary = {
 
 const en: Dictionary = {
   meta: {
-    title: 'Trust Services — Armored vehicle with or without chauffeur · Paris',
+    title: 'Trust Services — B6/B7 armored sedan with a trained chauffeur · Paris',
     description:
-      'An armored Mercedes-Benz S 580 at your disposal, with or without a chauffeur. Based in Paris, operating across France and worldwide. Confidential quote within 24 h.',
+      'A B6/B7 armored Mercedes-Benz S 580 with a trained chauffeur (HGV licence & security training), at your disposal. Based in Paris, operating across France and worldwide. Bespoke package, confidential quote within 24 h.',
   },
   nav: { vehicle: 'The vehicle', services: 'Services', quote: 'Quote', quoteCta: 'Quote' },
   hero: {
-    kicker: 'MERCEDES-BENZ · S 580 4MATIC · ARMORED',
+    kicker: 'MERCEDES-BENZ · S 580 4MATIC · B6/B7 ARMORED',
     h1: 'Discretion is the finest form of protection.',
-    sub: 'An armored vehicle at your disposal, with or without a chauffeur. Based in Paris, available anywhere.',
+    sub: 'A B6/B7 armored sedan with a trained chauffeur — HGV licence and security training. Based in Paris, available anywhere.',
     cta1: 'Request a quote',
     cta2: 'Discover the vehicle',
     stat1Label: 'AVAILABILITY',
@@ -242,10 +238,10 @@ const en: Dictionary = {
     stat2Value: '< 24 hours',
   },
   strip: [
-    'Certified armoring',
+    'B6 / B7 armoring',
     'Strictly factory appearance',
     'Tinted windows',
-    'With or without chauffeur',
+    'Trained chauffeur',
     'Complete confidentiality',
   ],
   vehicle: {
@@ -256,14 +252,14 @@ const en: Dictionary = {
     specs: [
       { label: 'MODEL', value: 'S 580 4MATIC' },
       { label: 'COLOUR', value: 'Obsidian black' },
-      { label: 'ARMORING', value: 'Certified — level on request' },
+      { label: 'ARMORING', value: 'Certified B6 / B7' },
       { label: 'PASSENGERS', value: '1 – 4' },
-      { label: 'CHAUFFEUR', value: 'With or without' },
+      { label: 'CHAUFFEUR', value: 'Trained — HGV & security' },
     ],
   },
   services: {
     kicker: '02 — MISSIONS',
-    h2: 'A service tailored to every need.',
+    h2: 'A bespoke, package-based service for every need.',
     items: [
       {
         num: '01 — TRANSFER',
@@ -300,8 +296,6 @@ const en: Dictionary = {
       email: 'Email *',
       missionPlaceholder: 'Type of mission…',
       missionOptions: ['One-off transfer', 'Daily hire', 'Long term'],
-      driverPlaceholder: 'Chauffeur…',
-      driverOptions: ['With chauffeur', 'Without chauffeur'],
       dates: 'Dates (from — to)',
       place: 'Pickup location',
       paxPlaceholder: 'Number of passengers…',
@@ -310,7 +304,7 @@ const en: Dictionary = {
     },
     mail: {
       subject: 'Quote request — Trust Services',
-      labels: ['Name', 'Email', 'Mission', 'Chauffeur', 'Dates', 'Pickup location', 'Passengers', 'Message'],
+      labels: ['Name', 'Email', 'Mission', 'Dates', 'Pickup location', 'Passengers', 'Message'],
     },
   },
   gallery: buildGallery('en'),
