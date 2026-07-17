@@ -1,0 +1,72 @@
+---
+import type { Lang, Dictionary } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+  t: Dictionary;
+}
+const { lang, t } = Astro.props;
+const altHref = lang === 'fr' ? '/en/' : '/';
+const altLabel = lang === 'fr' ? 'EN' : 'FR';
+---
+
+<footer class="foot pad">
+  <img src="/assets/logo-lockup-white.png" alt="Trust Services" height="26" class="foot-logo" />
+  <div class="mono foot-mid">{t.footer.mid}</div>
+  <div class="mono foot-right">
+    <span>{t.footer.rights}</span>
+    <a href={altHref} class="lang-toggle" hreflang={lang === 'fr' ? 'en' : 'fr'}>{altLabel}</a>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 48px;
+    gap: 24px;
+  }
+  .foot-logo {
+    height: 26px;
+    width: auto;
+    opacity: 0.9;
+  }
+  .foot-mid {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .foot-right {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .lang-toggle {
+    border: 1px solid var(--ghost-border);
+    color: var(--text) !important;
+    padding: 5px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s ease;
+  }
+  .lang-toggle:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 900px) {
+    .foot {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start !important;
+      padding: 28px 22px !important;
+    }
+    .foot-mid {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import type { Dictionary } from '../i18n/content';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+---
+
+<section class="reveal pad mono strip">
+  {
+    t.strip.map((item, i) => (
+      <>
+        <span>{item}</span>
+        {i < t.strip.length - 1 && <span class="sep">/</span>}
+      </>
+    ))
+  }
+</section>
+
+<style>
+  .strip {
+    padding: 26px 48px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 40px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12.5px;
+    color: #8a9096;
+  }
+  .sep {
+    color: #3a3f44;
+  }
+</style>

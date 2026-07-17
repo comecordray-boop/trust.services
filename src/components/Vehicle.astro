@@ -1,0 +1,199 @@
+---
+import type { Dictionary } from '../i18n/content';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+---
+
+<section id="vehicule" class="vehicle">
+  <div class="pad reveal sec-head">
+    <div class="mono kicker">{t.vehicle.kicker}</div>
+    <h2 class="sec-h2">{t.vehicle.h2}</h2>
+    <p class="lede">{t.vehicle.p}</p>
+    <button type="button" class="btn-ghost gallery-btn" data-lightbox-open="0">
+      <span class="gallery-icon" aria-hidden="true"><span></span></span>
+      <span>{t.vehicle.gallery}</span>
+    </button>
+  </div>
+
+  <div class="veh-grid pad">
+    <button type="button" class="veh-main veh-tile" data-lightbox-open="1" aria-label={t.gallery[1].alt}>
+      <span class="veh-photo toned" style="background-image:url('/assets/ext-side.jpg')"></span>
+      <span class="veh-main-fade"></span>
+    </button>
+
+    <div class="veh-side">
+      <button type="button" class="veh-side-tile veh-tile" data-lightbox-open="4" aria-label={t.gallery[4].alt}>
+        <span class="veh-photo toned" style="background-image:url('/assets/int-dash.jpg')"></span>
+      </button>
+      <button type="button" class="veh-side-tile veh-tile last" data-lightbox-open="6" aria-label={t.gallery[6].alt}>
+        <span class="veh-photo toned" style="background-image:url('/assets/det-armor.jpg')"></span>
+      </button>
+    </div>
+
+    <div class="mono veh-specs">
+      {
+        t.vehicle.specs.map((s, i) => (
+          <div class={`spec${i === t.vehicle.specs.length - 1 ? ' spec-last' : ''}`}>
+            <div class="spec-l">{s.label}</div>
+            <div class="spec-v">{s.value}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .vehicle {
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-head {
+    padding: 72px 48px 44px;
+  }
+  .kicker {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.14em;
+  }
+  .sec-h2 {
+    font-size: 38px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 18px 0 0;
+    max-width: 620px;
+  }
+  .lede {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-2);
+    max-width: 560px;
+    margin: 18px 0 0;
+  }
+  .gallery-btn {
+    margin-top: 26px;
+    gap: 12px;
+    padding: 14px 22px;
+    font-family: inherit;
+  }
+  .gallery-icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid currentColor;
+    position: relative;
+  }
+  .gallery-icon > span {
+    position: absolute;
+    inset: 2px 2px 6px 2px;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .veh-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  /* Tuiles cliquables : reset du bouton natif */
+  .veh-tile {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+  }
+  .veh-photo {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-color: var(--bg-card);
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .veh-tile:hover .veh-photo {
+    transform: scale(1.03);
+  }
+
+  .veh-main {
+    min-height: 380px;
+    border-right: 1px solid var(--line);
+  }
+  .veh-main-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(16, 18, 20, 0.55) 0%, rgba(16, 18, 20, 0) 40%);
+    pointer-events: none;
+  }
+
+  .veh-side {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--line);
+  }
+  .veh-side-tile {
+    flex: 1;
+    min-height: 190px;
+    border-bottom: 1px solid var(--line);
+  }
+  .veh-side-tile.last {
+    border-bottom: none;
+  }
+
+  .veh-specs {
+    display: flex;
+    flex-direction: column;
+  }
+  .spec {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .spec-last {
+    flex: 1;
+    border-bottom: none;
+  }
+  .spec-l {
+    color: var(--text-3);
+    font-size: 11px;
+  }
+  .spec-v {
+    margin-top: 7px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 900px) {
+    .sec-head {
+      padding: 52px 22px 32px !important;
+    }
+    .sec-h2 {
+      font-size: 28px !important;
+    }
+    .veh-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .veh-main {
+      min-height: 300px !important;
+      border-right: none !important;
+    }
+    .veh-side {
+      flex-direction: row !important;
+      border-right: none !important;
+    }
+    .veh-side-tile {
+      min-height: 220px;
+      border-bottom: none !important;
+    }
+    .veh-side-tile:first-child {
+      border-right: 1px solid var(--line);
+    }
+  }
+</style>

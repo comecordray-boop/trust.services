@@ -1,0 +1,110 @@
+---
+import type { Lang, Dictionary } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+  t: Dictionary;
+}
+const { lang, t } = Astro.props;
+const altHref = lang === 'fr' ? '/en/' : '/';
+const altLabel = lang === 'fr' ? 'EN' : 'FR';
+const home = lang === 'fr' ? '/' : '/en/';
+---
+
+<header class="pad hdr">
+  <div class="mono coords desktop-nav">PARIS · 48.8566° N</div>
+
+  <a href={home} class="logo" aria-label="Trust Services — accueil">
+    <img src="/assets/logo-lockup-white.png" alt="Trust Services" height="30" />
+  </a>
+
+  <nav class="desktop-nav main-nav" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
+    <a href="#vehicule" class="navlink">{t.nav.vehicle}</a>
+    <a href="#services" class="navlink">{t.nav.services}</a>
+    <a href="#devis" class="navlink">{t.nav.quote}</a>
+    <a href={altHref} class="mono lang-toggle" hreflang={lang === 'fr' ? 'en' : 'fr'}>{altLabel}</a>
+  </nav>
+
+  <nav class="mobile-nav" aria-label={lang === 'fr' ? 'Navigation' : 'Navigation'}>
+    <a href="#devis" class="btn-primary mobile-quote">{t.nav.quoteCta}</a>
+    <a href={altHref} class="mono lang-toggle" hreflang={lang === 'fr' ? 'en' : 'fr'}>{altLabel}</a>
+  </nav>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(16, 18, 20, 0.82);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .coords {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+  }
+  .logo {
+    justify-self: center;
+  }
+  .logo img {
+    display: block;
+    height: 30px;
+    width: auto;
+  }
+  .main-nav {
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #b7bbbf;
+  }
+  .main-nav a {
+    color: #b7bbbf;
+  }
+  .main-nav a:hover {
+    color: #fff;
+  }
+  .lang-toggle {
+    background: none;
+    border: 1px solid var(--ghost-border);
+    color: var(--text) !important;
+    padding: 6px 11px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    transition: border-color 0.2s ease;
+  }
+  .lang-toggle:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .mobile-nav {
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
+  .mobile-quote {
+    font-size: 12px;
+    padding: 9px 16px;
+  }
+  .mobile-nav .lang-toggle {
+    padding: 8px 11px;
+  }
+
+  @media (max-width: 900px) {
+    .hdr {
+      grid-template-columns: 1fr auto !important;
+      padding-top: 14px !important;
+      padding-bottom: 14px !important;
+    }
+    .logo {
+      justify-self: start;
+    }
+  }
+</style>

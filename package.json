@@ -1,0 +1,17 @@
+{
+  "name": "trust-services",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site vitrine Trust Services — mise à disposition de véhicule blindé, Paris (FR/EN)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  }
+}

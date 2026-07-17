@@ -1,0 +1,98 @@
+---
+import type { Dictionary } from '../i18n/content';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+---
+
+<section id="services" class="services">
+  <div class="pad reveal sec-head">
+    <div class="mono kicker">{t.services.kicker}</div>
+    <h2 class="sec-h2">{t.services.h2}</h2>
+  </div>
+  <div class="svc-grid">
+    {
+      t.services.items.map((item, i) => (
+        <div class={`svc reveal svc-cell${i === t.services.items.length - 1 ? ' svc-last' : ''}`}>
+          <div class="mono svc-num">{item.num}</div>
+          <div class="svc-title">{item.title}</div>
+          <p class="svc-desc">{item.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services {
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-head {
+    padding: 72px 48px 44px;
+  }
+  .kicker {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.14em;
+  }
+  .sec-h2 {
+    font-size: 38px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    margin: 18px 0 0;
+  }
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .svc-cell {
+    padding: 44px 40px;
+    border-right: 1px solid var(--line);
+    transition: background 0.25s ease;
+  }
+  .svc-last {
+    border-right: none;
+  }
+  .svc:hover {
+    background: var(--bg-card);
+  }
+  .svc-num {
+    font-size: 11px;
+    color: var(--text-3);
+  }
+  .svc-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 16px;
+  }
+  .svc-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-2);
+    margin-top: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .sec-head {
+      padding: 52px 22px 32px !important;
+    }
+    .sec-h2 {
+      font-size: 28px !important;
+    }
+    .svc-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .svc-cell {
+      padding: 34px 22px !important;
+      border-right: none !important;
+      border-bottom: 1px solid var(--line) !important;
+    }
+    .svc-last {
+      border-bottom: none !important;
+    }
+  }
+</style>

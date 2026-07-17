@@ -1,0 +1,158 @@
+---
+import type { Dictionary } from '../i18n/content';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+---
+
+<section id="top" class="hero-grid">
+  <div class="pad hero-copy">
+    <img src="/assets/logo-mark-white.png" alt="Trust" class="hero-mark" height="64" />
+    <div class="mono kicker">{t.hero.kicker}</div>
+    <h1 class="h1">{t.hero.h1}</h1>
+    <p class="sub">{t.hero.sub}</p>
+    <div class="hero-actions">
+      <a href="#devis" class="btn-primary">{t.hero.cta1}</a>
+      <a href="#vehicule" class="btn-ghost">{t.hero.cta2}</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-media">
+      <div class="hero-photo toned"></div>
+      <div class="hero-fade"></div>
+    </div>
+    <div class="hero-stats mono">
+      <div class="stat stat-1">
+        <div class="stat-l">{t.hero.stat1Label}</div>
+        <div class="stat-v">{t.hero.stat1Value}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-l">{t.hero.stat2Label}</div>
+        <div class="stat-v">{t.hero.stat2Value}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-copy {
+    padding: 88px 48px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-mark {
+    height: 64px;
+    width: auto;
+    align-self: flex-start;
+    margin-bottom: 34px;
+  }
+  .kicker {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.14em;
+  }
+  .h1 {
+    font-size: 56px;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin: 22px 0 0;
+  }
+  .sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text-2);
+    max-width: 470px;
+    margin: 24px 0 0;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-media {
+    flex: 1;
+    min-height: 360px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background: url('/assets/ext-front.jpg') center 42% / cover;
+    background-color: var(--bg-card);
+  }
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, #101214 0%, rgba(16, 18, 20, 0.5) 24%, rgba(16, 18, 20, 0) 62%),
+      linear-gradient(0deg, #101214 0%, rgba(16, 18, 20, 0) 34%);
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 12px;
+  }
+  .stat {
+    padding: 18px 22px;
+  }
+  .stat-1 {
+    border-right: 1px solid var(--line);
+  }
+  .stat-l {
+    color: var(--text-3);
+  }
+  .stat-v {
+    color: var(--text);
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .hero-copy {
+      padding: 48px 22px 40px !important;
+      border-right: none !important;
+    }
+    .h1 {
+      font-size: clamp(34px, 9vw, 44px) !important;
+    }
+    .hero-mark {
+      height: 48px !important;
+      margin-bottom: 24px !important;
+    }
+    .hero-media {
+      min-height: 230px !important;
+      margin: 4px 22px 0 !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+  @media (max-width: 520px) {
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hero-actions a {
+      text-align: center;
+    }
+  }
+</style>

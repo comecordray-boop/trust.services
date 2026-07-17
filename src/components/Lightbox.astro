@@ -1,0 +1,259 @@
+---
+import type { Dictionary } from '../i18n/content';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const items = t.gallery;
+// Libellés localisés simples (dérivés de la langue courante)
+const isFr = t.nav.vehicle === 'Le véhicule';
+const L = {
+  close: isFr ? '✕ FERMER' : '✕ CLOSE',
+  prev: isFr ? 'Précédent' : 'Previous',
+  next: isFr ? 'Suivant' : 'Next',
+};
+---
+
+<div class="lb" data-lightbox hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galerie">
+  <div class="lb-top">
+    <div class="mono lb-counter">
+      <span data-lb-num>01</span> / <span data-lb-total>{String(items.length).padStart(2, '0')}</span>
+      · <span class="lb-caption" data-lb-caption></span>
+    </div>
+    <button type="button" class="mono lb-close" data-lb-close>{L.close}</button>
+  </div>
+
+  <div class="lb-stage">
+    <img data-lb-img src="" alt="" />
+    <button type="button" class="lb-arrow lb-prev" data-lb-prev aria-label={L.prev}>‹</button>
+    <button type="button" class="lb-arrow lb-next" data-lb-next aria-label={L.next}>›</button>
+  </div>
+
+  <div class="lb-thumbs" data-lb-thumbs>
+    {
+      items.map((it, i) => (
+        <button
+          type="button"
+          class="lb-thumb"
+          data-lb-thumb={i}
+          style={`background-image:url('${it.src}')`}
+          aria-label={it.caption}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script is:inline define:vars={{ gallery: items }}>
+  (() => {
+    const lb = document.querySelector('[data-lightbox]');
+    if (!lb) return;
+
+    const imgEl = lb.querySelector('[data-lb-img]');
+    const numEl = lb.querySelector('[data-lb-num]');
+    const capEl = lb.querySelector('[data-lb-caption]');
+    const thumbs = Array.from(lb.querySelectorAll('[data-lb-thumb]'));
+    const total = gallery.length;
+    let index = 0;
+    let open = false;
+    let lastFocused = null;
+
+    function render() {
+      const item = gallery[index] || gallery[0];
+      imgEl.src = item.src;
+      imgEl.alt = item.alt;
+      numEl.textContent = String(index + 1).padStart(2, '0');
+      capEl.textContent = item.caption;
+      thumbs.forEach((th, i) => th.classList.toggle('active', i === index));
+      const active = thumbs[index];
+      if (active && active.scrollIntoView) {
+        active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+    }
+
+    function openAt(i) {
+      index = ((i % total) + total) % total;
+      open = true;
+      lastFocused = document.activeElement;
+      lb.hidden = false;
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      render();
+      const closeBtn = lb.querySelector('[data-lb-close]');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function close() {
+      open = false;
+      lb.hidden = true;
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    function go(delta) {
+      index = ((index + delta) % total + total) % total;
+      render();
+    }
+
+    // Déclencheurs (boutons/tuiles marqués data-lightbox-open="N")
+    document.querySelectorAll('[data-lightbox-open]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const i = parseInt(trigger.getAttribute('data-lightbox-open') || '0', 10);
+        openAt(Number.isFinite(i) ? i : 0);
+      });
+    });
+
+    lb.querySelector('[data-lb-close]').addEventListener('click', close);
+    lb.querySelector('[data-lb-prev]').addEventListener('click', () => go(-1));
+    lb.querySelector('[data-lb-next]').addEventListener('click', () => go(1));
+    thumbs.forEach((th, i) => th.addEventListener('click', () => { index = i; render(); }));
+
+    // Clic sur le fond (hors image / contrôles) → fermer
+    lb.querySelector('.lb-stage').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) close();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (!open) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') go(1);
+      else if (e.key === 'ArrowLeft') go(-1);
+    });
+  })();
+</script>
+
+<style>
+  .lb {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(8, 9, 10, 0.975);
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+  }
+  .lb[hidden] {
+    display: none;
+  }
+  .lb-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line);
+    gap: 16px;
+  }
+  .lb-counter {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--text-2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lb-caption {
+    color: var(--text);
+  }
+  .lb-close {
+    flex: none;
+    cursor: pointer;
+    background: none;
+    border: 1px solid var(--ghost-border);
+    color: var(--text);
+    padding: 8px 14px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+  }
+  .lb-close:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .lb-stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    min-height: 0;
+  }
+  .lb-stage img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  }
+  .lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(20, 23, 26, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--text);
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .lb-arrow:hover {
+    background: rgba(30, 34, 38, 0.95);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  .lb-prev {
+    left: 20px;
+  }
+  .lb-next {
+    right: 20px;
+  }
+
+  .lb-thumbs {
+    display: flex;
+    gap: 10px;
+    padding: 16px 28px 24px;
+    overflow-x: auto;
+    border-top: 1px solid var(--line);
+    justify-content: center;
+  }
+  .lb-thumb {
+    width: 84px;
+    height: 54px;
+    flex: none;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    opacity: 0.5;
+    border-radius: 2px;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+    padding: 0;
+  }
+  .lb-thumb:hover {
+    opacity: 0.8;
+  }
+  .lb-thumb.active {
+    opacity: 1;
+    border-color: var(--text);
+  }
+
+  @media (max-width: 900px) {
+    .lb-thumbs {
+      justify-content: flex-start;
+    }
+    .lb-arrow {
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>

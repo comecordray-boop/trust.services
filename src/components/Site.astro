@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import Strip from './Strip.astro';
+import Vehicle from './Vehicle.astro';
+import Services from './Services.astro';
+import Band from './Band.astro';
+import Quote from './Quote.astro';
+import Footer from './Footer.astro';
+import Lightbox from './Lightbox.astro';
+import { getDictionary, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDictionary(lang);
+---
+
+<Base lang={lang} t={t}>
+  <div class="shell">
+    <Header lang={lang} t={t} />
+    <main>
+      <Hero t={t} />
+      <Strip t={t} />
+      <Vehicle t={t} />
+      <Services t={t} />
+      <Band t={t} />
+      <Quote t={t} />
+    </main>
+    <Footer lang={lang} t={t} />
+  </div>
+  <Lightbox t={t} />
+</Base>
+
+<script>
+  // Reveal au scroll — révèle les éléments .reveal une seule fois.
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((el) => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    els.forEach((el) => io.observe(el));
+  }
+</script>

@@ -1,0 +1,250 @@
+---
+import type { Lang, Dictionary } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+  t: Dictionary;
+}
+
+const { lang, t } = Astro.props;
+const altLang: Lang = lang === 'fr' ? 'en' : 'fr';
+const altHref = altLang === 'fr' ? '/' : '/en/';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={altLang === 'fr' ? 'https://trust-services.fr/en/' : 'https://trust-services.fr/'} />
+    <link rel="alternate" hreflang="fr" href="https://trust-services.fr/" />
+    <link rel="alternate" hreflang="en" href="https://trust-services.fr/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://trust-services.fr/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+    <meta property="og:image" content="/assets/ext-front.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- lien de secours vers l'autre langue pour le crawl -->
+    <link rel="alternate" href={altHref} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #101214;
+    --bg-alt: #0c0e10;
+    --bg-card: #14171a;
+    --text: #e8eaec;
+    --text-2: #9aa0a6;
+    --text-3: #7d8288;
+    --line: rgba(255, 255, 255, 0.09);
+    --line-soft: rgba(255, 255, 255, 0.06);
+    --ghost-border: rgba(255, 255, 255, 0.22);
+    --max: 1280px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  a:hover {
+    color: #fff;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #5c6167;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+  }
+  select option {
+    background: var(--bg-card);
+    color: var(--text);
+  }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Conteneur central borné avec bordures latérales fines */
+  .shell {
+    max-width: var(--max);
+    margin: 0 auto;
+    border-inline: 1px solid var(--line-soft);
+  }
+
+  /* Padding horizontal des sections */
+  .pad {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* ── Liens de nav avec soulignement animé ── */
+  .navlink {
+    position: relative;
+  }
+  .navlink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 1px;
+    background: var(--text);
+    transition: width 0.3s ease;
+  }
+  .navlink:hover::after {
+    width: 100%;
+  }
+
+  /* ── Boutons ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--text);
+    color: var(--bg);
+    padding: 16px 30px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    color: var(--bg);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--ghost-border);
+    color: var(--text);
+    background: none;
+    padding: 16px 30px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  /* ── Champs formulaire ── */
+  .fld {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    padding: 15px 16px;
+    font-size: 14px;
+    border-radius: 2px;
+    width: 100%;
+    transition: border-color 0.2s ease;
+  }
+
+  /* ── Reveal au scroll ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ── Traitement des images (désaturé + assombri) pour se fondre dans
+     le fond anthracite. À retirer si les photos sont déjà étalonnées. ── */
+  .toned {
+    filter: saturate(0.72) brightness(0.82) contrast(1.02);
+  }
+
+  /* ── Responsive : bascule à 900px ── */
+  .desktop-nav {
+    display: flex;
+  }
+  .mobile-nav {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .pad {
+      padding-left: 22px !important;
+      padding-right: 22px !important;
+    }
+    .desktop-nav {
+      display: none !important;
+    }
+    .mobile-nav {
+      display: flex !important;
+    }
+  }
+</style>
