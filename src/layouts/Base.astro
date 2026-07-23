@@ -9,6 +9,45 @@ interface Props {
 const { lang, t } = Astro.props;
 const altLang: Lang = lang === 'fr' ? 'en' : 'fr';
 const altHref = altLang === 'fr' ? '/' : '/en/';
+
+const SITE = 'https://trust-armored.com';
+const selfHref = lang === 'fr' ? SITE + '/' : SITE + '/en/';
+const ogImage = SITE + '/assets/ext-front.jpg';
+
+// Données structurées (Google) — service de location de véhicule blindé
+// avec chauffeur, basé à Paris. Aide Google à comprendre l'activité.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoRental',
+  name: 'Trust Services',
+  description: t.meta.description,
+  url: SITE + '/',
+  image: ogImage,
+  email: 'contact@trust-services.fr',
+  areaServed: [
+    { '@type': 'Country', name: 'France' },
+    { '@type': 'Country', name: 'France & international' },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Paris',
+    addressCountry: 'FR',
+  },
+  makesOffer: {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name:
+        lang === 'fr'
+          ? 'Location de berline blindée B6/B7 avec chauffeur formé'
+          : 'B6/B7 armored sedan hire with a trained chauffeur',
+      serviceType:
+        lang === 'fr' ? 'Véhicule blindé avec chauffeur' : 'Armored vehicle with chauffeur',
+      provider: { '@type': 'Organization', name: 'Trust Services' },
+      areaServed: { '@type': 'Country', name: 'France' },
+    },
+  },
+};
 ---
 
 <!doctype html>
@@ -24,17 +63,25 @@ const altHref = altLang === 'fr' ? '/' : '/en/';
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#101214" />
-    <link rel="canonical" href={altLang === 'fr' ? 'https://trust-services.fr/en/' : 'https://trust-services.fr/'} />
-    <link rel="alternate" hreflang="fr" href="https://trust-services.fr/" />
-    <link rel="alternate" hreflang="en" href="https://trust-services.fr/en/" />
-    <link rel="alternate" hreflang="x-default" href="https://trust-services.fr/" />
+    <link rel="canonical" href={selfHref} />
+    <link rel="alternate" hreflang="fr" href={SITE + '/'} />
+    <link rel="alternate" hreflang="en" href={SITE + '/en/'} />
+    <link rel="alternate" hreflang="x-default" href={SITE + '/'} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={selfHref} />
+    <meta property="og:site_name" content="Trust Services" />
     <meta property="og:title" content={t.meta.title} />
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
-    <meta property="og:image" content="/assets/ext-front.jpg" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.meta.title} />
+    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
