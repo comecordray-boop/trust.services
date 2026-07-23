@@ -80,14 +80,14 @@ export type Dictionary = {
 
 // Chemins des photos (à déposer dans /public/assets — voir assets/README.txt)
 const PHOTOS = [
-  'assets/ext-front.jpg',
-  'assets/ext-side.jpg',
-  'assets/ext-rear3q.jpg',
-  'assets/ext-rear.jpg',
-  'assets/int-dash.jpg',
-  'assets/det-door.jpg',
-  'assets/det-armor.jpg',
-  'assets/det-speaker.jpg',
+  '/assets/ext-front.jpg',
+  '/assets/ext-side.jpg',
+  '/assets/ext-rear3q.jpg',
+  '/assets/ext-rear.jpg',
+  '/assets/int-dash.jpg',
+  '/assets/det-door.jpg',
+  '/assets/det-armor.jpg',
+  '/assets/det-speaker.jpg',
 ] as const;
 
 const GALLERY_CAPTIONS: Record<Lang, string[]> = {
