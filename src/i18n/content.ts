@@ -52,6 +52,11 @@ export type Dictionary = {
     items: { num: string; title: string; desc: string }[];
   };
   band: { kicker: string; line: string };
+  faq: {
+    kicker: string;
+    h2: string;
+    items: { q: string; a: string }[];
+  };
   quote: {
     kicker: string;
     h2Html: string;
@@ -186,6 +191,32 @@ const fr: Dictionary = {
     kicker: 'PARIS · FRANCE · INTERNATIONAL',
     line: 'Là où vous allez, la discrétion vous précède.',
   },
+  faq: {
+    kicker: '04 — QUESTIONS FRÉQUENTES',
+    h2: 'Questions fréquentes',
+    items: [
+      {
+        q: 'Le service est-il toujours avec chauffeur ?',
+        a: "Oui, exclusivement. Nos chauffeurs sont formés à la conduite (permis poids lourd) et à la sécurité, parlent français et anglais, et se présentent en tenue sobre et élégante.",
+      },
+      {
+        q: 'Où intervenez-vous ?',
+        a: "Basés à Paris, nous nous déplaçons dans toute la France ainsi que dans les pays limitrophes — Suisse, Italie et frontières proches. Précisez votre destination dans la demande de devis.",
+      },
+      {
+        q: 'Le véhicule est-il reconnaissable comme blindé ?',
+        a: "Non. La Mercedes-Benz Classe S conserve l'apparence exacte d'une berline de série : rien ne laisse deviner son blindage. Aucune information sur nos clients ou leurs trajets n'est communiquée — la confidentialité est totale.",
+      },
+      {
+        q: 'Quel est le niveau de blindage, et contre quoi protège-t-il ?',
+        a: "Le véhicule est certifié B6/B7, un niveau de protection élevé. Le blindage résiste aux armes de poing ainsi qu'aux armes longues telles que les fusils d'assaut de calibre 5,56 mm et 7,62 mm ; le niveau B7 protège en outre contre certaines munitions perforantes. Le détail des protections est communiqué sur demande, dans un cadre confidentiel.",
+      },
+      {
+        q: 'Comment réserver, et à quel tarif ?',
+        a: "La réservation à l'avance est recommandée. Chaque mise à disposition est un forfait établi selon votre demande ; le tarif est communiqué sur devis. Nous répondons à chaque demande sous 24 heures.",
+      },
+    ],
+  },
   quote: {
     kicker: '03 — DEMANDE DE DEVIS',
     h2Html: "Chaque mission est unique.<br>Chaque devis l'est aussi.",
@@ -281,6 +312,32 @@ const en: Dictionary = {
   band: {
     kicker: 'PARIS · FRANCE · WORLDWIDE',
     line: 'Wherever you go, discretion goes first.',
+  },
+  faq: {
+    kicker: '04 — FREQUENTLY ASKED QUESTIONS',
+    h2: 'Frequently asked questions',
+    items: [
+      {
+        q: 'Is the service always with a chauffeur?',
+        a: 'Yes, exclusively. Our chauffeurs are trained in both driving (HGV licence) and security, speak French and English, and present themselves in understated, elegant attire.',
+      },
+      {
+        q: 'Where do you operate?',
+        a: 'Based in Paris, we travel throughout France and to neighbouring countries — Switzerland, Italy and nearby borders. Simply mention your destination in the quote request.',
+      },
+      {
+        q: 'Can the vehicle be identified as armored?',
+        a: 'No. The Mercedes-Benz S-Class keeps the exact appearance of a factory sedan: nothing reveals its armoring. No information about our clients or their journeys is ever shared — confidentiality is absolute.',
+      },
+      {
+        q: 'What is the armoring level, and what does it protect against?',
+        a: 'The vehicle is certified B6/B7, a high level of protection. The armoring withstands handguns as well as long guns such as 5.56 mm and 7.62 mm assault rifles; the B7 level also protects against certain armour-piercing rounds. Full protection details are provided on request, within a confidential discussion.',
+      },
+      {
+        q: 'How do I book, and at what price?',
+        a: 'Booking in advance is recommended. Each assignment is a package tailored to your request; pricing is provided by quote. We reply to every enquiry within 24 hours.',
+      },
+    ],
   },
   quote: {
     kicker: '03 — REQUEST A QUOTE',
